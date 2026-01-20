@@ -512,8 +512,8 @@ Dia 5: Go-Live Controlado
 ### **Contato Comercial:**
 
 📧 **Email:** corporativo@loomper.com.br  
-📱 **WhatsApp:** (11) 91234-5678  
-🌐 **Site:** www.loomper.com.br/empresas  
+📱 **WhatsApp:**  +55 (11) 96585-8142 
+🌐 **Site:** www.loomper.com.br
 📅 **Agendar Demo:** [Link Calendly]  
 
 **Horário de Atendimento:**  
@@ -545,5 +545,5 @@ Sábado: 8h às 12h
 
 ---
 
-*Loomper Connect - Versão 1.28.0 | © 2025 Loomper Tecnologia Ltda.*  
+*Loomper Connect - Versão 1.28.0 | © 2026 Loomper Tecnologia Ltda.*  
 *Parceiro oficial de +[X] transportadoras no Brasil*
