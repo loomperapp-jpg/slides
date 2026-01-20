@@ -16,15 +16,11 @@ jobs:
       - name: Instalar Marp CLI
         run: npm install -g @marp-team/marp-cli
 
-      - name: Criar pasta de saída
-        run: mkdir -p pdfs
-
       - name: Gerar PDFs a partir dos .md
         run: |
-          marp *.md \
-            --pdf \
-            --allow-local-files \
-            --output pdfs/
+          marp *.md --pdf --allow-local-files
+          mkdir -p pdfs
+          mv *.pdf pdfs/
 
       - name: Publicar PDFs como artefato
         uses: actions/upload-artifact@v4
