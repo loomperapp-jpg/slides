@@ -559,8 +559,8 @@ Customer Success Manager exclusivo | Relatórios mensais de performance
 ## 📩 **Agende uma Demonstração**
 
 **📧 Email**: b2b@loomper.com.br  
-**📱 WhatsApp**: (11) 91234-5678  
-**🌐 Portal**: www.loomper.com.br/montadoras  
+**📱 WhatsApp**:  +55 (11) 96585-8142  
+**🌐 Portal**: www.loomper.com.br
 **📅 Calendário**: [Link para agendamento]
 
 ### 🎯 **"Menos custo, mais eficiência, zero improviso."**
@@ -575,7 +575,7 @@ Customer Success Manager exclusivo | Relatórios mensais de performance
 # 🙏 **OBRIGADO!**
 
 ### *Loomper Connect — v1.28.0*  
-*Janeiro 2025 | © 2025 Loomper Tecnologia Ltda.*
+*Janeiro 2026 | © 2026 Loomper Tecnologia Ltda.*
 
 **Aguardamos seu contato!** 🚀  
 *Transforme sua logística hoje mesmo.*
