@@ -468,7 +468,7 @@ R$ 250.000 — 500.000
 ## 📩 **Entre em Contato**
 
 **📧 Email**: contato@loomper.com.br  
-**📱 WhatsApp**: (11) 91234-5678  
+**📱 WhatsApp**: +55 (11) 96585-8142  
 **🌐 Site**: www.loomper.com.br  
 **📄 Deck Completo**: [Link para Data Room]
 
@@ -484,7 +484,7 @@ R$ 250.000 — 500.000
 # 🙏 **OBRIGADO!**
 
 ### *Loomper Connect — v1.28.0*  
-*Janeiro 2025 | © 2025 Loomper Tecnologia Ltda.*
+*Janeiro 2026 | © 2026 Loomper Tecnologia Ltda.*
 
 **Perguntas?** 🤔  
 *Estamos à disposição para esclarecer todas as dúvidas!*
