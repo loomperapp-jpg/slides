@@ -551,10 +551,10 @@ Pode ser exportado para outros setores: construção civil, delivery, cuidadores
 # 🙏 **OBRIGADO!**
 
 ### *Loomper Connect — v1.28.0*  
-*Janeiro 2025 | © 2025 Loomper Tecnologia Ltda.*
+*Janeiro 2026 | © 2026 Loomper Tecnologia Ltda.*
 
 **📧 Email**: parcerias.governo@loomper.com.br  
-**📱 WhatsApp**: (11) 91234-5678  
+**📱 WhatsApp**:  +55 (11) 96585-8142  
 **🌐 Site**: www.loomper.com.br
 
 *Aguardamos seu contato para agendarmos a reunião técnica!* 🤝
