@@ -12,9 +12,9 @@
 ---
 
 **Pitch para Seguradoras**  
-Janeiro 2025 | Versão 1.28.0
+Janeiro 2026 | Versão 1.28.0
 
-📧 seguradoras@loomper.com.br  
+📧 contato@loomper.com.br  
 🌐 www.loomper.com.br
 
 ---
@@ -470,11 +470,11 @@ POST https://seguradora.com.br/webhooks/incidents
 
 **Dados estruturados = Seguros mais inteligentes!**
 
-📧 seguradoras@loomper.com.br | 📱 (11) 91234-5678  
+📧 contato@loomper.com.br | 📱  +55 (11) 96585-8142  
 🌐 www.loomper.com.br
 
 **Vamos construir o futuro do seguro logístico!** 🚀
 
 ---
 
-*Loomper Connect - Pitch Seguradora | v1.0 | Janeiro 2025*
+*Loomper Connect - Pitch Seguradora | v1.0 | Janeiro 2026*
