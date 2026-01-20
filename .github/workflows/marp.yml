@@ -2,7 +2,40 @@ name: Gerar PDFs Loomper (Marp)
 
 on:
   push:
-    paths:
+    paths:name: Gerar PDFs Loomper (Marp)
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  gerar-pdfs:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout do repositório
+        uses: actions/checkout@v4
+
+      - name: Instalar Marp CLI
+        run: npm install -g @marp-team/marp-cli
+
+      - name: Criar pasta de saída
+        run: mkdir -p pdfs
+
+      - name: Gerar PDFs a partir dos .md
+        run: |
+          marp *.md \
+            --pdf \
+            --allow-local-files \
+            --output pdfs/
+
+      - name: Publicar PDFs como artefato
+        uses: actions/upload-artifact@v4
+        with:
+          name: loomper-pdfs
+          path: pdfs/
+
       - "slides/**/*.md"
 
 jobs:
