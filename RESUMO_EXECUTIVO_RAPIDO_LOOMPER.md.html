@@ -1,0 +1,416 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RESUMO_EXECUTIVO_RAPIDO_LOOMPER.md</title>
+  <link rel="stylesheet" href="https://stackedit.io/style.css" />
+</head>
+
+<body class="stackedit">
+  <div class="stackedit__html"><h1 id="📋-loomper---resumo-executivo-rápido">📋 LOOMPER - RESUMO EXECUTIVO RÁPIDO</h1>
+<p><strong>Versão:</strong> 1.0 (Janeiro 2026)<br>
+<strong>Documento:</strong> Quick Reference Guide<br>
+<strong>Audiência:</strong> Desenvolvedores profissionais que assumirão o projeto</p>
+<hr>
+<h2 id="🎯-o-que-é-o-loomper">🎯 O QUE É O LOOMPER?</h2>
+<p>Plataforma que <strong>conecta motoristas de cegonha com chapas/ajudantes automotivos</strong> para serviços pontuais de carga, descarga, guia e manobras.</p>
+<p><strong>Stack Técnico:</strong></p>
+<pre><code>Flutter 3.35.4 | Dart 3.9.2 | Firebase
+Package: com.loomperconnect.market
+</code></pre>
+<hr>
+<h2 id="💰-sistema-de-créditos-moeda-virtual">💰 SISTEMA DE CRÉDITOS (Moeda Virtual)</h2>
+<h3 id="recarga-mensal">Recarga Mensal</h3>
+<ul>
+<li><strong>1.000 créditos</strong> renovam dia 1º de cada mês (NÃO acumula)</li>
+<li>Todos os perfis recebem</li>
+</ul>
+<h3 id="custos">Custos</h3>
+<ul>
+<li><strong>Criar demanda:</strong> -50 créditos (motorista)</li>
+<li><strong>Aceitar chapa:</strong> -150 créditos reservados (motorista)</li>
+<li><strong>Candidatar-se:</strong> GRÁTIS (chapa)</li>
+</ul>
+<h3 id="bônus-de-indicação-mlm">Bônus de Indicação (MLM)</h3>
+<pre><code>Indicou alguém:              +50 créditos
+Indicado se cadastrou:       +100 créditos
+Indicado usou o app:         +150 créditos
+Indicado indicou outro:      +200 créditos (MLM nível 2)
+───────────────────────────────────────────
+TETO MENSAL:                  500 créditos (anti-fraude)
+</code></pre>
+<h3 id="bônus-de-gamificação">Bônus de Gamificação</h3>
+<pre><code>Primeira demanda:            +100 créditos
+Primeiro match:              +50 créditos
+Primeira avaliação 5★:       +75 créditos
+Streak 7 dias:               +100 créditos
+Streak 30 dias:              +500 créditos
+Desafio 5 matches/mês:       +200 créditos
+Desafio 3 indicações/mês:    +300 créditos
+10 demandas criadas:         +250 créditos
+50 matches completos:        +1000 créditos
+</code></pre>
+<hr>
+<h2 id="🔄-fluxo-principal">🔄 FLUXO PRINCIPAL</h2>
+<pre><code>1. MOTORISTA cria demanda (-50 créditos)
+   └─&gt; Notificação push para chapas da região
+   └─&gt; WhatsApp para favoritos convidados
+
+2. CHAPAS se candidatam (grátis)
+   └─&gt; Motorista recebe notificação
+
+3. MOTORISTA aceita chapa (-150 créditos RESERVADOS)
+   └─&gt; Sistema gera códigos: MMMM-CCCC
+   └─&gt; WhatsApp para ambos com códigos
+
+4. DIA DO SERVIÇO: Motorista valida código CCCC
+   └─&gt; Serviço iniciado
+
+5. MOTORISTA finaliza serviço
+   └─&gt; -150 créditos (motorista)
+   └─&gt; +500 créditos (chapa, valor oferecido)
+   └─&gt; Avaliação mútua
+</code></pre>
+<hr>
+<h2 id="🚫-política-de-cancelamento">🚫 POLÍTICA DE CANCELAMENTO</h2>
+<p><strong>Motorista pode cancelar match após aceitar chapa:</strong></p>
+
+<table>
+<thead>
+<tr>
+<th>Motivo</th>
+<th>Prazo até Serviço</th>
+<th>Taxa</th>
+<th>Reembolso</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Força maior</strong></td>
+<td>Qualquer</td>
+<td>0%</td>
+<td>150 créditos</td>
+</tr>
+<tr>
+<td><strong>Outro motivo</strong></td>
+<td>Mais de 24h</td>
+<td>20%</td>
+<td>120 créditos</td>
+</tr>
+<tr>
+<td><strong>Outro motivo</strong></td>
+<td>12h a 24h</td>
+<td>50%</td>
+<td>75 créditos</td>
+</tr>
+<tr>
+<td><strong>Outro motivo</strong></td>
+<td>Menos de 12h</td>
+<td>100%</td>
+<td>0 créditos</td>
+</tr>
+<tr>
+<td><strong>Outro chapa</strong></td>
+<td>Qualquer</td>
+<td>100%</td>
+<td>0 créditos</td>
+</tr>
+</tbody>
+</table><p><strong>Chapa:</strong></p>
+<ul>
+<li>✅ Pode cancelar candidatura ANTES de ser aceito (sem penalidade)</li>
+<li>❌ NÃO pode cancelar após match (contatar suporte)</li>
+</ul>
+<hr>
+<h2 id="📊-estrutura-firestore-collections">📊 ESTRUTURA FIRESTORE (Collections)</h2>
+<pre class=" language-javascript"><code class="prism  language-javascript">users<span class="token operator">/</span>                   <span class="token comment">// Perfis de usuários</span>
+  <span class="token punctuation">{</span>userId<span class="token punctuation">}</span><span class="token operator">/</span>
+    <span class="token operator">/</span>wallets<span class="token operator">/</span>           <span class="token comment">// Carteira de créditos</span>
+    <span class="token operator">/</span>credit_transactions<span class="token operator">/</span> <span class="token comment">// Histórico de transações</span>
+    <span class="token operator">/</span>achievements<span class="token operator">/</span>      <span class="token comment">// Conquistas desbloqueadas</span>
+
+demands<span class="token operator">/</span>                <span class="token comment">// Demandas criadas</span>
+applications<span class="token operator">/</span>           <span class="token comment">// Candidaturas de chapas</span>
+services<span class="token operator">/</span>               <span class="token comment">// Serviços em andamento/concluídos</span>
+referrals<span class="token operator">/</span>              <span class="token comment">// Sistema de indicações MLM</span>
+cancellations<span class="token operator">/</span>          <span class="token comment">// Histórico de cancelamentos</span>
+</code></pre>
+<hr>
+<h2 id="🐛-bugs-críticos-para-correção">🐛 BUGS CRÍTICOS PARA CORREÇÃO</h2>
+<h3 id="❌-whatsapp-triplicado">1. ❌ WhatsApp Triplicado</h3>
+<p><strong>Problema:</strong> Mensagem de WhatsApp enviada 3x após cadastro via indicação</p>
+<p><strong>Solução:</strong></p>
+<pre class=" language-dart"><code class="prism  language-dart">Future<span class="token operator">&lt;</span><span class="token keyword">void</span><span class="token operator">&gt;</span> <span class="token function">sendReferralWhatsApp</span><span class="token punctuation">(</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">)</span> <span class="token keyword">async</span> <span class="token punctuation">{</span>
+  <span class="token keyword">final</span> referralDoc <span class="token operator">=</span> <span class="token keyword">await</span> <span class="token function">getReferralByPhone</span><span class="token punctuation">(</span>phone<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  
+  <span class="token comment">// ✅ VERIFICAR SE JÁ FOI ENVIADO</span>
+  <span class="token keyword">if</span> <span class="token punctuation">(</span>referralDoc<span class="token punctuation">.</span><span class="token function">data</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">?</span><span class="token punctuation">[</span><span class="token string">'whatsapp_sent'</span><span class="token punctuation">]</span> <span class="token operator">==</span> <span class="token boolean">true</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">return</span><span class="token punctuation">;</span> <span class="token comment">// Ignorar</span>
+  <span class="token punctuation">}</span>
+  
+  <span class="token keyword">await</span> whatsappAPI<span class="token punctuation">.</span><span class="token function">send</span><span class="token punctuation">(</span>phone<span class="token punctuation">,</span> message<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  
+  <span class="token comment">// ✅ MARCAR COMO ENVIADO</span>
+  <span class="token keyword">await</span> <span class="token function">updateReferralDoc</span><span class="token punctuation">(</span>referralDoc<span class="token punctuation">.</span>id<span class="token punctuation">,</span> <span class="token punctuation">{</span>
+    <span class="token string">'whatsapp_sent'</span><span class="token punctuation">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+    <span class="token string">'whatsapp_sent_at'</span><span class="token punctuation">:</span> FieldValue<span class="token punctuation">.</span><span class="token function">serverTimestamp</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+  <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<h3 id="❌-landing-page---link-app.loomper">2. ❌ Landing Page - Link app.loomper</h3>
+<p><strong>Problema:</strong> Link <code>app.loomper</code> não está próximo ao botão “Baixar APK”</p>
+<p><strong>Solução:</strong></p>
+<pre class=" language-html"><code class="prism  language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>download-section<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>a</span> <span class="token attr-name">href</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>https://download.loomper.com/app-v1.39.0.apk<span class="token punctuation">"</span></span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>btn-download<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
+    📥 Baixar APK v1.39.0
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>a</span><span class="token punctuation">&gt;</span></span>
+  
+  <span class="token comment">&lt;!-- ✅ ADICIONAR ESTE LINK --&gt;</span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>a</span> <span class="token attr-name">href</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>https://app.loomper.com<span class="token punctuation">"</span></span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>btn-webapp<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
+    🌐 Usar Web App (sem instalação)
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>a</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">&gt;</span></span>
+</code></pre>
+<h3 id="❌-apk-download-link-desatualizado">3. ❌ APK Download Link Desatualizado</h3>
+<p><strong>Problema:</strong> Link de download não sincroniza com novas versões</p>
+<p><strong>Solução:</strong></p>
+<pre class=" language-html"><code class="prism  language-html"><span class="token comment">&lt;!-- Usar link dinâmico que sempre aponta para última versão --&gt;</span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>a</span> <span class="token attr-name">href</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>https://download.loomper.com/app-latest.apk<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
+  📥 Baixar APK (Última Versão)
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>a</span><span class="token punctuation">&gt;</span></span>
+
+<span class="token comment">&lt;!-- Backend: Criar redirect automático --&gt;</span>
+/app-latest.apk → /app-v1.39.0.apk (atualizar após cada build)
+</code></pre>
+<hr>
+<h2 id="🔧-validações-críticas-anti-fraude">🔧 VALIDAÇÕES CRÍTICAS (Anti-Fraude)</h2>
+<pre class=" language-dart"><code class="prism  language-dart"><span class="token comment">// Limites diários</span>
+<span class="token keyword">const</span> int maxDemandsPerDay <span class="token operator">=</span> <span class="token number">10</span><span class="token punctuation">;</span>       <span class="token comment">// Criar demandas</span>
+<span class="token keyword">const</span> int maxApplicationsPerDay <span class="token operator">=</span> <span class="token number">20</span><span class="token punctuation">;</span>  <span class="token comment">// Candidaturas</span>
+<span class="token keyword">const</span> int maxCancellationsPerMonth <span class="token operator">=</span> <span class="token number">3</span><span class="token punctuation">;</span> <span class="token comment">// Cancelamentos</span>
+
+<span class="token comment">// Teto de bônus</span>
+<span class="token keyword">const</span> int bonusMonthlyLimit <span class="token operator">=</span> <span class="token number">500</span><span class="token punctuation">;</span>     <span class="token comment">// Bônus de indicação</span>
+
+<span class="token comment">// Validar antes de operações</span>
+<span class="token operator">-</span> Verificar saldo <span class="token operator">&gt;=</span> custo
+<span class="token operator">-</span> Usar Firestore Transactions para atomicidade
+<span class="token operator">-</span> Registrar todas <span class="token operator">as</span> operações em histórico
+</code></pre>
+<hr>
+<h2 id="📱-integrações">📱 INTEGRAÇÕES</h2>
+<h3 id="firebase-services">Firebase Services</h3>
+<pre class=" language-yaml"><code class="prism  language-yaml"><span class="token key atrule">Authentication</span><span class="token punctuation">:</span> Email/Senha<span class="token punctuation">,</span> Telefone/OTP<span class="token punctuation">,</span> Google Sign<span class="token punctuation">-</span>In
+<span class="token key atrule">Firestore</span><span class="token punctuation">:</span> Database NoSQL (collections acima)
+<span class="token key atrule">Storage</span><span class="token punctuation">:</span> Fotos de perfil
+<span class="token key atrule">FCM</span><span class="token punctuation">:</span> Notificações push
+<span class="token key atrule">Analytics</span><span class="token punctuation">:</span> Rastreamento de eventos (futuro)
+</code></pre>
+<h3 id="external-apis">External APIs</h3>
+<pre class=" language-yaml"><code class="prism  language-yaml">WhatsApp Business API<span class="token punctuation">:</span> Notificações (implementar)
+IBGE API<span class="token punctuation">:</span> Cidades e estados brasileiros
+Google Maps<span class="token punctuation">:</span> Geolocalização (futuro v2.0)
+Payment Gateway<span class="token punctuation">:</span> Mercado Pago/Stripe (futuro v2.0)
+</code></pre>
+<hr>
+<h2 id="🚀-roadmap">🚀 ROADMAP</h2>
+<h3 id="✅-mvp-v1.0-atual---janeiro-2026">✅ MVP v1.0 (ATUAL - Janeiro 2026)</h3>
+<ul>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" checked="true" disabled=""> Autenticação completa</li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" checked="true" disabled=""> Sistema de créditos</li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" checked="true" disabled=""> Demandas e candidaturas</li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" checked="true" disabled=""> Match e códigos de serviço</li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" checked="true" disabled=""> Avaliações e reputação</li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" checked="true" disabled=""> Cancelamento com reembolso</li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" checked="true" disabled=""> Indicações MLM (2 níveis)</li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" checked="true" disabled=""> Gamificação (conquistas, streaks)</li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" checked="true" disabled=""> Notificações push</li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" checked="true" disabled=""> Política de Privacidade (LGPD)</li>
+</ul>
+<h3 id="🎯-v1.1-fevereiro-2026---próximos-passos">🎯 v1.1 (Fevereiro 2026) - PRÓXIMOS PASSOS</h3>
+<ul>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled=""> <strong>CRÍTICO:</strong> Corrigir WhatsApp triplicado</li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled=""> <strong>CRÍTICO:</strong> Adicionar link app.loomper na landing page</li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled=""> <strong>CRÍTICO:</strong> Sincronizar link de download do APK</li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled=""> Tela de histórico de transações de créditos</li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled=""> Filtros avançados de busca de demandas</li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled=""> Dashboard de estatísticas</li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled=""> Melhorar UX de validação de códigos</li>
+</ul>
+<h3 id="🚀-v1.2-março-2026">🚀 v1.2 (Março 2026)</h3>
+<ul>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled=""> Chat in-app</li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled=""> Upload de fotos do serviço</li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled=""> Geolocalização real-time</li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled=""> Mapa com demandas próximas</li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled=""> Agendamento recorrente</li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled=""> Pacotes de créditos (compra com dinheiro)</li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled=""> Gateway de pagamento</li>
+</ul>
+<h3 id="🌐-v2.0-abril-junho-2026">🌐 v2.0 (Abril-Junho 2026)</h3>
+<ul>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled=""> App iOS</li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled=""> Painel admin web</li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled=""> API pública</li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled=""> Sistema de transportadoras avançado</li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled=""> Expansão nacional</li>
+</ul>
+<hr>
+<h2 id="📊-métricas-de-sucesso-kpis">📊 MÉTRICAS DE SUCESSO (KPIs)</h2>
+<pre><code>NEGÓCIO:
+- DAU/MAU (usuários ativos)
+- Retention Rate D1/D7/D30
+- Match Rate (meta: &gt;70%)
+- Completion Rate (meta: &gt;90%)
+- Cancellation Rate (meta: &lt;10%)
+- Average Rating (meta: &gt;4.5)
+- Referral Rate (meta: &gt;30%)
+
+TÉCNICO:
+- App Crash Rate (meta: &lt;0.1%)
+- API Response Time (meta: &lt;1s)
+- Error Rate (meta: &lt;1%)
+- Test Coverage (meta: &gt;80%)
+</code></pre>
+<hr>
+<h2 id="📞-contatos">📞 CONTATOS</h2>
+<p><strong>Email:</strong> <a href="mailto:contato@loomper.com.br">contato@loomper.com.br</a><br>
+<strong>Empresa:</strong> <a href="http://Ajud.AI">Ajud.AI</a> Tecnologia LTDA<br>
+<strong>CNPJ:</strong> 59.150.688/0001-39<br>
+<strong>Endereço:</strong> São Bernardo do Campo - SP</p>
+<hr>
+<h2 id="📦-arquivos-do-projeto">📦 ARQUIVOS DO PROJETO</h2>
+<pre><code>✅ RELATORIO_EXECUTIVO_LOOMPER_MVP_V1.0_COMPLETO.md (44 KB)
+   → Documento principal: Políticas, regras, arquitetura completa
+   
+✅ GUIA_TECNICO_DESENVOLVEDOR_LOOMPER.md (38 KB)
+   → Guia técnico: Fluxogramas, código, integrações, troubleshooting
+   
+✅ RESUMO_EXECUTIVO_RAPIDO.md (Este arquivo)
+   → Quick reference: Consulta rápida para desenvolvedores
+
+📦 Flutter App Source Code (Flutter 3.35.4)
+   → /home/user/flutter_app/
+   
+📦 APK Funcional v1.39.0 (54 MB)
+   → /home/user/loomper-v1.39.0-CORRIGIDA-FUNCIONAL.apk
+
+🌐 Web App v1.39.0
+   → https://5060-ikgkjy6bfdtdgi4a890jg-c81df28e.sandbox.novita.ai
+</code></pre>
+<hr>
+<h2 id="🎯-prioridades-de-desenvolvimento">🎯 PRIORIDADES DE DESENVOLVIMENTO</h2>
+<p><strong>IMEDIATO (Esta Semana):</strong></p>
+<ol>
+<li>Corrigir WhatsApp triplicado após cadastro</li>
+<li>Atualizar landing page com link app.loomper</li>
+<li>Configurar link dinâmico de download do APK</li>
+<li>Testes de estabilidade do MVP</li>
+</ol>
+<p><strong>CURTO PRAZO (1-2 Semanas):</strong></p>
+<ol>
+<li>Implementar tela de histórico de transações</li>
+<li>Adicionar filtros de busca de demandas</li>
+<li>Melhorar UX de validação de códigos</li>
+<li>Dashboard de estatísticas</li>
+</ol>
+<p><strong>MÉDIO PRAZO (1 Mês):</strong></p>
+<ol>
+<li>Chat in-app</li>
+<li>Upload de fotos do serviço</li>
+<li>Geolocalização e mapas</li>
+<li>Gateway de pagamento</li>
+</ol>
+<hr>
+<h2 id="💡-dicas-para-o-desenvolvedor">💡 DICAS PARA O DESENVOLVEDOR</h2>
+<h3 id="firestore-security-rules">1. Firestore Security Rules</h3>
+<pre class=" language-javascript"><code class="prism  language-javascript"><span class="token comment">// Proteger collections</span>
+rules_version <span class="token operator">=</span> <span class="token string">'2'</span><span class="token punctuation">;</span>
+service cloud<span class="token punctuation">.</span>firestore <span class="token punctuation">{</span>
+  match <span class="token operator">/</span>databases<span class="token operator">/</span><span class="token punctuation">{</span>database<span class="token punctuation">}</span><span class="token operator">/</span>documents <span class="token punctuation">{</span>
+    <span class="token comment">// Apenas o próprio usuário pode ler/editar seus dados</span>
+    match <span class="token operator">/</span>users<span class="token operator">/</span><span class="token punctuation">{</span>userId<span class="token punctuation">}</span> <span class="token punctuation">{</span>
+      allow read<span class="token punctuation">,</span> write<span class="token punctuation">:</span> <span class="token keyword">if</span> request<span class="token punctuation">.</span>auth<span class="token punctuation">.</span>uid <span class="token operator">==</span> userId<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    
+    <span class="token comment">// Demandas: criador pode editar, todos podem ler</span>
+    match <span class="token operator">/</span>demands<span class="token operator">/</span><span class="token punctuation">{</span>demandId<span class="token punctuation">}</span> <span class="token punctuation">{</span>
+      allow read<span class="token punctuation">:</span> <span class="token keyword">if</span> request<span class="token punctuation">.</span>auth <span class="token operator">!=</span> <span class="token keyword">null</span><span class="token punctuation">;</span>
+      allow write<span class="token punctuation">:</span> <span class="token keyword">if</span> request<span class="token punctuation">.</span>auth<span class="token punctuation">.</span>uid <span class="token operator">==</span> resource<span class="token punctuation">.</span>data<span class="token punctuation">.</span>created_by<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<h3 id="performance-optimization">2. Performance Optimization</h3>
+<pre class=" language-dart"><code class="prism  language-dart"><span class="token comment">// Usar cache para queries frequentes</span>
+<span class="token keyword">final</span> demandQuery <span class="token operator">=</span> _firestore
+    <span class="token punctuation">.</span><span class="token function">collection</span><span class="token punctuation">(</span><span class="token string">'demands'</span><span class="token punctuation">)</span>
+    <span class="token punctuation">.</span><span class="token function">where</span><span class="token punctuation">(</span><span class="token string">'status'</span><span class="token punctuation">,</span> isEqualTo<span class="token punctuation">:</span> <span class="token string">'open'</span><span class="token punctuation">)</span>
+    <span class="token punctuation">.</span><span class="token function">orderBy</span><span class="token punctuation">(</span><span class="token string">'created_at'</span><span class="token punctuation">,</span> descending<span class="token punctuation">:</span> <span class="token boolean">true</span><span class="token punctuation">)</span>
+    <span class="token punctuation">.</span><span class="token function">limit</span><span class="token punctuation">(</span><span class="token number">20</span><span class="token punctuation">)</span><span class="token punctuation">;</span>  <span class="token comment">// ✅ Limitar resultados</span>
+
+<span class="token comment">// ✅ Usar StreamBuilder para updates em tempo real</span>
+StreamBuilder<span class="token operator">&lt;</span>QuerySnapshot<span class="token operator">&gt;</span><span class="token punctuation">(</span>
+  stream<span class="token punctuation">:</span> demandQuery<span class="token punctuation">.</span><span class="token function">snapshots</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+  builder<span class="token punctuation">:</span> <span class="token punctuation">(</span>context<span class="token punctuation">,</span> snapshot<span class="token punctuation">)</span> <span class="token punctuation">{</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span> <span class="token punctuation">}</span>
+<span class="token punctuation">)</span>
+</code></pre>
+<h3 id="error-handling">3. Error Handling</h3>
+<pre class=" language-dart"><code class="prism  language-dart"><span class="token comment">// ✅ Sempre tratar erros de Firebase</span>
+<span class="token keyword">try</span> <span class="token punctuation">{</span>
+  <span class="token keyword">await</span> <span class="token function">operation</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span> on FirebaseException <span class="token keyword">catch</span> <span class="token punctuation">(</span><span class="token class-name">e</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">switch</span> <span class="token punctuation">(</span>e<span class="token punctuation">.</span>code<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">case</span> <span class="token string">'permission-denied'</span><span class="token punctuation">:</span>
+      <span class="token function">showError</span><span class="token punctuation">(</span><span class="token string">'Você não tem permissão'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token keyword">break</span><span class="token punctuation">;</span>
+    <span class="token keyword">case</span> <span class="token string">'not-found'</span><span class="token punctuation">:</span>
+      <span class="token function">showError</span><span class="token punctuation">(</span><span class="token string">'Documento não encontrado'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token keyword">break</span><span class="token punctuation">;</span>
+    <span class="token keyword">default</span><span class="token punctuation">:</span>
+      <span class="token function">showError</span><span class="token punctuation">(</span><span class="token string">'Erro: ${e.message}'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span> <span class="token keyword">catch</span> <span class="token punctuation">(</span><span class="token class-name">e</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token function">showError</span><span class="token punctuation">(</span><span class="token string">'Erro inesperado'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token function">logError</span><span class="token punctuation">(</span>e<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// Enviar para Crashlytics</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<h3 id="testing">4. Testing</h3>
+<pre class=" language-dart"><code class="prism  language-dart"><span class="token comment">// Testes unitários críticos</span>
+<span class="token function">test</span><span class="token punctuation">(</span><span class="token string">'Validar cálculo de reembolso'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">final</span> refund <span class="token operator">=</span> <span class="token function">calculateRefund</span><span class="token punctuation">(</span>
+    reason<span class="token punctuation">:</span> <span class="token string">'mudanca_planos'</span><span class="token punctuation">,</span>
+    hoursUntilService<span class="token punctuation">:</span> <span class="token number">25</span><span class="token punctuation">,</span>
+  <span class="token punctuation">)</span><span class="token punctuation">;</span>
+  
+  <span class="token function">expect</span><span class="token punctuation">(</span>refund<span class="token punctuation">,</span> <span class="token function">equals</span><span class="token punctuation">(</span><span class="token number">120</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// Taxa 20%</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token comment">// Testes de integração</span>
+<span class="token function">testWidgets</span><span class="token punctuation">(</span><span class="token string">'Criar demanda com sucesso'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span>tester<span class="token punctuation">)</span> <span class="token keyword">async</span> <span class="token punctuation">{</span>
+  <span class="token keyword">await</span> tester<span class="token punctuation">.</span><span class="token function">pumpWidget</span><span class="token punctuation">(</span><span class="token function">MyApp</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">await</span> tester<span class="token punctuation">.</span><span class="token function">tap</span><span class="token punctuation">(</span>find<span class="token punctuation">.</span><span class="token function">text</span><span class="token punctuation">(</span><span class="token string">'Criar Demanda'</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">await</span> tester<span class="token punctuation">.</span><span class="token function">enterText</span><span class="token punctuation">(</span>find<span class="token punctuation">.</span><span class="token function">byKey</span><span class="token punctuation">(</span><span class="token string">'title'</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token string">'Teste'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">await</span> tester<span class="token punctuation">.</span><span class="token function">tap</span><span class="token punctuation">(</span>find<span class="token punctuation">.</span><span class="token function">text</span><span class="token punctuation">(</span><span class="token string">'Criar'</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  
+  <span class="token function">expect</span><span class="token punctuation">(</span>find<span class="token punctuation">.</span><span class="token function">text</span><span class="token punctuation">(</span><span class="token string">'Demanda criada!'</span><span class="token punctuation">)</span><span class="token punctuation">,</span> findsOneWidget<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<hr>
+<p><strong>Documento Gerado:</strong> 22/01/2026<br>
+<strong>Versão:</strong> 1.0 (Quick Reference)<br>
+<strong>Status:</strong> ✅ Pronto para compartilhar com desenvolvedor profissional</p>
+<hr>
+<blockquote>
+<p>📌 <strong>Este é um resumo executivo. Para detalhes completos, consulte os documentos principais:</strong></p>
+<ul>
+<li><code>RELATORIO_EXECUTIVO_LOOMPER_MVP_V1.0_COMPLETO.md</code> (44 KB)</li>
+<li><code>GUIA_TECNICO_DESENVOLVEDOR_LOOMPER.md</code> (38 KB)</li>
+</ul>
+</blockquote>
+</div>
+</body>
+
+</html>
